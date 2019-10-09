@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect
-from .forms import UserForm
+from .forms import UserForm, BillForm
 from django.contrib import messages
+from .models import BillModel
 
 # Create your views here.
 # Make sure your App URLs match your views
@@ -83,4 +84,13 @@ def new_user(request):
 
 # This will show the dashboard html
 def dashboard(request):
-    return render(request, "BillApp/dashboard.html")
+    if request.method == "POST":
+        print(request.POST)
+        newBill = BillModel(name = request.POST["name"], foreignKey = request.user)
+        newBill.save()
+        return redirect("dashboard")
+    context = {
+        "form": BillForm(),
+        "allBills": BillModel.objects.filter(foreignKey=request.user)
+    }
+    return render(request, "BillApp/dashboard.html", context)

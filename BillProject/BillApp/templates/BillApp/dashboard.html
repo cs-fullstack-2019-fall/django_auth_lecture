@@ -9,6 +9,14 @@
 {% if user.is_authenticated %}
     {# user.username is not passed in context. It is automatically available in your pages if a user is logged in #}
     <h1>Dashboard. Welcome {{ user.username}} </h1>
+{% for eachBill in allBills %}
+{{ eachBill }}<br>
+{% endfor %}
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button>Submnit</button>
+</form>
     <a href="{% url 'index' %}">Home</a> or
     <a href="{% url 'logout_user' %}">Log Out</a>
 {% else %}
