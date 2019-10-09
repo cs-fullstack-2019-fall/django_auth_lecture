@@ -32,7 +32,7 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return render(request, "BillApp/index.html")
+    return redirect("index")
 
 def new_user(request):
     if request.method == "POST":

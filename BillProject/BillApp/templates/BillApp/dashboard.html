@@ -5,8 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Dashboard. Welcome {{ user.username}} </h1>
 
-<a href="{% url 'index' %}">Home</a>
+{% if user.is_authenticated %}
+    <h1>Dashboard. Welcome {{ user.username}} </h1>
+    <a href="{% url 'index' %}">Home</a> or
+    <a href="{% url 'logout_user' %}">Log Out</a>
+{% else %}
+    <h1>Log In <a href="{% url 'login_user' %}">Here</a></h1>
+{% endif %}
 </body>
 </html>
