@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect
 from .forms import UserForm
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -17,13 +18,20 @@ def login_user(request):
             login(request, loggedInUser)
             return redirect("dashboard")
         else:
+            messages.error(request, "Wrong username or password")
             return redirect("login_user")
+            # context = {
+            #     "error": "Wrong username or password",
+            #     "form": UserForm(),
+            # }
+            # return render(request, "BillApp/login_user.html", context)
     context = {
         "form": UserForm()
     }
     return render(request, "BillApp/login_user.html", context)
 
 def logout_user(request):
+    logout(request)
     return render(request, "BillApp/index.html")
 
 def new_user(request):
