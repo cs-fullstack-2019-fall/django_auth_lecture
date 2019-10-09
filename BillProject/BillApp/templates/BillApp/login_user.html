@@ -6,9 +6,12 @@
 </head>
 <body>
 <h1>Log In</h1>
+{# This will show each error message in the messages array #}
 {% for message in messages %}
 {{ message }}
 {% endfor %}
+
+{# This is the log in user form #}
 <form action="{% url 'login_user' %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}

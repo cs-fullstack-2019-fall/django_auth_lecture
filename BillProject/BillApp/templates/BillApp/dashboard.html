@@ -5,8 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-
+{# This HTML page welcomes logged in users. If the user is logged in, they'll see the welcome page. If they are not logged in, they will see the login_user link. #}
 {% if user.is_authenticated %}
+    {# user.username is not passed in context. It is automatically available in your pages if a user is logged in #}
     <h1>Dashboard. Welcome {{ user.username}} </h1>
     <a href="{% url 'index' %}">Home</a> or
     <a href="{% url 'logout_user' %}">Log Out</a>

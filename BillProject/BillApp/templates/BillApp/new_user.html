@@ -6,8 +6,10 @@
 </head>
 <body>
 <h1>New User</h1>
-
+{# This will show the form errors that are automatically created #}
 {{ errors }}
+
+{# This is the form for new users #}
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
