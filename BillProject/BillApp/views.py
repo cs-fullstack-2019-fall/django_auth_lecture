@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from .forms import UserForm
 
@@ -12,6 +13,8 @@ def logout_user(request):
     return render(request, "BillApp/index.html")
 
 def new_user(request):
+    if request.method == "POST":
+        User.objects.create_user(username= request.POST['username'], email = "", password = request.POST['password'])
     context = {
         "form": UserForm()
     }
