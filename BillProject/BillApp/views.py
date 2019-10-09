@@ -21,14 +21,15 @@ def new_user(request):
             return redirect("dashboard")
         else:    # Form is invalid
             context = {
-                "form": UserForm()
+                "errors": newUserForm.errors,
+                "form": UserForm(),
             }
             return render(request, 'BillApp/new_user.html', context)
-
-    context = {
-        "form": UserForm()
-    }
-    return render(request, 'BillApp/new_user.html', context)
+    else:   # If it's a GET method because request.method == 'GET'
+        context = {
+            "form": UserForm()
+        }
+        return render(request, 'BillApp/new_user.html', context)
 
 def dashboard(request):
     return render(request, "BillApp/dashboard.html")
