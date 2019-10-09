@@ -18,10 +18,7 @@ def new_user(request):
     if request.method == "POST":
         newUserForm = UserForm(request.POST)
         if newUserForm.is_valid():
-
-            User.objects.create_user(username= request.POST['username'], email = "", password = request.POST['password'])
-
-            loggedInUser = authenticate(username = request.POST['username'], password = request.POST['password'])
+            loggedInUser = User.objects.create_user(username= request.POST['username'], email = "", password = request.POST['password'])
             login(request, loggedInUser)
             return redirect("dashboard")
         else:    # Form is invalid
