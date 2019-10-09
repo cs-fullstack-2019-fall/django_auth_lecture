@@ -9,7 +9,18 @@ def index(request):
     return render(request, 'BillApp/index.html')
 
 def login_user(request):
-    return render(request, "BillApp/login_user.html")
+    if request.method == "POST":
+        print(request.POST)
+        loggedInUser = authenticate(username = request.POST['username'], password = request.POST["password"])
+        print(loggedInUser)
+        if loggedInUser is not None:
+            return redirect("dashboard")
+        else:
+            return redirect("login_user")
+    context = {
+        "form": UserForm()
+    }
+    return render(request, "BillApp/login_user.html", context)
 
 def logout_user(request):
     return render(request, "BillApp/index.html")
