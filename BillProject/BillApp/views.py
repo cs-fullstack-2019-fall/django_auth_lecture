@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import UserForm
 
 # Create your views here.
@@ -15,7 +15,16 @@ def logout_user(request):
 
 def new_user(request):
     if request.method == "POST":
-        User.objects.create_user(username= request.POST['username'], email = "", password = request.POST['password'])
+        newUserForm = UserForm(request.POST)
+        if newUserForm.is_valid():
+            User.objects.create_user(username= request.POST['username'], email = "", password = request.POST['password'])
+            return redirect("dashboard")
+        else:    # Form is invalid
+            context = {
+                "form": UserForm()
+            }
+            return render(request, 'BillApp/new_user.html', context)
+
     context = {
         "form": UserForm()
     }
