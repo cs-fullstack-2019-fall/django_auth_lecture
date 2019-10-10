@@ -22,5 +22,11 @@
 {% else %}
     <h1>Log In <a href="{% url 'login_user' %}">Here</a></h1>
 {% endif %}
+
+<h1>Here are all the bills</h1>
+
+{% for eachBill in allBillsInExistance %}
+{{ eachBill }} belongs to {{eachBill.foreignKey}}<br>
+{% endfor %}
 </body>
 </html>

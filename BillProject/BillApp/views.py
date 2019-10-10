@@ -91,6 +91,7 @@ def dashboard(request):
         return redirect("dashboard")
     context = {
         "form": BillForm(),
-        "allBills": BillModel.objects.filter(foreignKey=request.user)
+        "allBills": BillModel.objects.filter(foreignKey=request.user),
+        "allBillsInExistance": BillModel.objects.all(),
     }
     return render(request, "BillApp/dashboard.html", context)
